@@ -1,1 +1,1 @@
-deno run --allow-net --env=.env main.ts
+deployctl run --nocheck --watch --env=.env main.ts
