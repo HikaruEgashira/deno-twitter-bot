@@ -1,7 +1,4 @@
-import {
-  changeRules,
-  getRules,
-} from "https://kamekyame.github.io/twitter_api_client/api_v2/tweets/filtered_stream.ts";
+import { changeRules, getRules } from "../deps.ts";
 
 export async function deleteRules(bearerToken: string) {
   const rules = await getRules(bearerToken);
