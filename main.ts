@@ -1,18 +1,17 @@
-import { getBearerToken } from "https://kamekyame.github.io/twitter_api_client/auth/oauth2.ts";
 import {
+  getBearerToken,
   changeRules,
+  // getRules,
   connectStream,
-  getRules,
-} from "https://kamekyame.github.io/twitter_api_client/api_v2/tweets/filtered_stream.ts";
-import { statusRetweet } from "https://kamekyame.github.io/twitter_api_client/api_v1/tweets/retweet.ts";
-
+  statusRetweet,
+} from "./deps.ts";
 import {
   TWITTER_ACCESS_TOKEN,
   TWITTER_ACCESS_TOKEN_SECRET,
   TWITTER_API_KEY,
   TWITTER_API_SECRET,
 } from "./env.ts";
-import { deleteRules } from "./lib/deleteRules.ts";
+import { deleteRules } from "./lib/mod.ts";
 
 // token for v2
 const bearerToken = await getBearerToken(TWITTER_API_KEY, TWITTER_API_SECRET);
@@ -30,12 +29,11 @@ await changeRules(bearerToken, {
 });
 
 // ルールの確認
-const rules = await getRules(bearerToken);
-console.log(rules);
+// const rules = await getRules(bearerToken);
+// console.log(rules);
 
 await connectStream(bearerToken, async (tweet) => {
-  console.log(`tweet: ${JSON.stringify(tweet)}`);
-  const res = await statusRetweet(
+  await statusRetweet(
     {
       consumerKey: TWITTER_API_KEY,
       consumerSecret: TWITTER_API_SECRET,
@@ -47,5 +45,4 @@ await connectStream(bearerToken, async (tweet) => {
       trim_user: true,
     }
   );
-  console.log(`reteweet: ${JSON.stringify(res)}`);
 });
