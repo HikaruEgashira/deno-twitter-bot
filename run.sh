@@ -1,1 +1,1 @@
-deployctl run --nocheck --watch --env=.env main.ts
+deployctl run --no-check --watch --env=.env main.ts

@@ -14,14 +14,17 @@ import {
 } from "./env.ts";
 import { deleteRules } from "./lib/deleteRules.ts";
 
+// token for v2
 const bearerToken = await getBearerToken(TWITTER_API_KEY, TWITTER_API_SECRET);
+
+const wordList = ["東京", "神奈川", "埼玉", "茨城", "栃木", "群馬", "山梨"];
 
 // 検索ルールの設定
 await deleteRules(bearerToken);
 await changeRules(bearerToken, {
   add: [
     {
-      value: "from:UN_NERV",
+      value: `from:UN_NERV (${wordList.join(" OR ")})`,
     },
   ],
 });
