@@ -18,19 +18,19 @@ const bearerToken = await getBearerToken(TWITTER_API_KEY, TWITTER_API_SECRET);
 
 // 検索ルールの設定
 // https://developer.twitter.com/en/docs/twitter-api/tweets/filtered-stream/integrate/build-a-rule
-// const prefList = ["東京", "神奈川", "埼玉", "茨城", "栃木", "群馬", "山梨"];
+const prefList = ["東京", "神奈川", "埼玉", "茨城", "栃木", "群馬", "山梨"];
 await deleteRules(bearerToken);
-await changeRules(bearerToken, {
-  add: [{
-    value: "from:UN_NERV",
-  }]
-});
 // await changeRules(bearerToken, {
-//   add: prefList.map(pref => ({
-//     value: `${pref} from:UN_NERV`,
-//     tag: pref
-//   })),
+//   add: [{
+//     value: "from:UN_NERV",
+//   }]
 // });
+await changeRules(bearerToken, {
+  add: prefList.map(pref => ({
+    value: `${pref} from:UN_NERV`,
+    tag: pref
+  })),
+});
 
 // ルールの確認
 const rules = await getRules(bearerToken);
